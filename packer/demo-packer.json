@@ -1,0 +1,51 @@
+{
+"variables": {
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "aws_region": "us-east-1",
+    "version": "1.7.1",
+    "revision": "0",
+    "instance_type": "t2.micro"
+  },
+
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "{{user `aws_region`}}",
+    "instance_type": "{{user `instance_type`}}",
+    "ssh_username": "ubuntu",
+    "ami_name": "ubuntu-docker-{{user `version`}}.{{user `revision`}}",
+    "ami_regions": "{{user `aws_region`}}",
+    "source_ami_filter": {
+      "filters": {
+      "virtualization-type": "hvm",
+      "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+      "root-device-type": "ebs"
+      },
+      "owners": ["099720109477"],
+      "most_recent": true
+    },
+"launch_block_device_mappings": [
+          {
+            "device_name": "/dev/sda1",
+            "volume_size": 30,
+            "volume_type": "gp2",
+            "delete_on_termination": true
+          }
+        ],
+        "ssh_pty": "true",
+        "tags": {
+          "Name":        "bootstrap-{{user `owner`}}-{{user `environment`}}-{{timestamp}}",
+          "Role":        "bootstrap",
+          "BuildDate":   "{{isotime}}"
+        }
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "environment_vars": [
+      "version={{user `version`}}"
+    ],
+    "scripts": ["packer/docker_download1.sh"]
+  }]
+}
