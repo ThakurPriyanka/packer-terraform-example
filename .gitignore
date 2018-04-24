@@ -1,0 +1,11 @@
+*.tfvars
+*.tfstate
+*.tfstate.backup
+mykey
+mykey.pub
+lock.json
+terraform-provider-aws_v1.15.0_x4
+.terraform.tfstate.lock.info
+
+
+
