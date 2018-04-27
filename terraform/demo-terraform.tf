@@ -1,9 +1,3 @@
-provider "aws" {
-  access_key = "${var.AWS_ACCESS_KEY}"
-  secret_key = "${var.AWS_SECRET_KEY}"
-  region     = "${var.region}"
-}
-
 data "aws_ami" "ubuntu" {
   most_recent      = true
   filter {
