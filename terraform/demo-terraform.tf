@@ -2,7 +2,7 @@ data "aws_ami" "ubuntu" {
   most_recent      = true
   filter {
     name   = "name"
-    values = ["ubuntu-docker-1.7.1.0"]
+    values = ["${var.image_name}"]
   }
 filter {
     name   = "virtualization-type"
@@ -39,5 +39,10 @@ connection {
 }
 
 output "ip" {
-value = "${aws_key_pair.mykey.key_name}" 
+value = "${aws_instance.bootstrap.ami}" 
 }
+
+output "name" {
+value = "${var.image_name}" 
+}
+

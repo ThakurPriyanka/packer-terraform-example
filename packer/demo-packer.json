@@ -5,9 +5,9 @@
     "aws_region": "us-east-1",
     "version": "1.7.1",
     "revision": "0",
-    "instance_type": "t2.micro"
+    "instance_type": "t2.micro",
+    "image_name" : "{{ env `IMAGE_NAME` }}"
   },
-
   "builders": [{
     "type": "amazon-ebs",
     "access_key": "{{user `aws_access_key`}}",
@@ -15,7 +15,7 @@
     "region": "{{user `aws_region`}}",
     "instance_type": "{{user `instance_type`}}",
     "ssh_username": "ubuntu",
-    "ami_name": "ubuntu-docker-{{user `version`}}.{{user `revision`}}",
+    "ami_name": "{{user `image_name`}}",
     "ami_regions": "{{user `aws_region`}}",
     "source_ami_filter": {
       "filters": {
