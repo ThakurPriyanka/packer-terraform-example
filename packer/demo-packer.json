@@ -24,7 +24,6 @@
       "root-device-type": "ebs"
       },
       "owners": ["099720109477"],
-      "most_recent": true
     },
 "launch_block_device_mappings": [
           {
